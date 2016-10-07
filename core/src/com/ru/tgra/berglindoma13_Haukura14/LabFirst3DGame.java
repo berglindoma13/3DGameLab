@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
 
+import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.model.data.ModelMaterial;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.BufferUtils;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
@@ -30,11 +33,25 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	//private ModelMatrix modelMatrix;
 
+	private Point3D CameraPos;
+
+    private Point3D BoxPos;
+
 
 	private float angle;
 
 	@Override
 	public void create () {
+
+        CameraPos = new Point3D();
+		CameraPos.x = 0.0f;
+		CameraPos.y = 0.0f;
+		CameraPos.z = 0.0f;
+
+        BoxPos = new Point3D();
+        BoxPos.x = 50.0f;
+        BoxPos.y = 50.0f;
+        BoxPos.z = 50.0f;
 
 		angle = 0.0f;
 		Gdx.input.setInputProcessor(this);
@@ -109,26 +126,34 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//OrthographicProjection3D(-2, 2, -2, 2, 1, 100);
 		PerspctiveProjection3D();
         //change the first point to change the starting view
-		Look3D(new Point3D(1.5f, 1.2f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
+		Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
 	}
 
 	private void input()
 	{
+		float deltaTime = Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			CameraPos.z += deltaTime * 10.0f;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			CameraPos.z -= deltaTime * 10.0f;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+			CameraPos.x -= deltaTime * 10.0f;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+			CameraPos.x += deltaTime * 10.0f;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+			CameraPos.y += deltaTime * 10.0f;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+			CameraPos.y -= deltaTime * 10.0f;
 		}
 	}
 	
@@ -147,10 +172,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.3f, 0.1f, 1.0f);
+        ModelMatrix.main.loadIdentityMatrix();
+        ModelMatrix.main.pushMatrix();
+        Look3D(CameraPos, new Point3D(0,0,0), new Vector3D(0,1,0));
+        ModelMatrix.main.setShaderMatrix();
+        ModelMatrix.main.popMatrix();
 
-		ModelMatrix.main.loadIdentityMatrix();
-		//ModelMatrix.main.addTranslation(250, 250, 0);
-		ModelMatrix.main.pushMatrix();
+		//ModelMatrix.main.loadIdentityMatrix();
+        ModelMatrix.main.pushMatrix();
+        ModelMatrix.main.loadIdentityMatrix();
+        ModelMatrix.main.addTranslation(BoxPos.x, BoxPos.y, BoxPos.z);
 		ModelMatrix.main.addScale(1.0f, 1.0f, 1.0f);
 		ModelMatrix.main.setShaderMatrix();
 		BoxGraphic.drawSolidCube();
