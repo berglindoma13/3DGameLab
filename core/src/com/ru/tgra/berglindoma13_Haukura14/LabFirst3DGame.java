@@ -126,15 +126,22 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	private void input()
 	{
 		float deltaTime = Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-
-        }
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-		}
 		if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			cam.pitch(90f * deltaTime);
+        }
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			cam.pitch(-90f * deltaTime);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			cam.yaw(-90f * deltaTime);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			cam.yaw(90f * deltaTime);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.slide(0, 3.0f*deltaTime,0);
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		if(Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.slide(0, -3.0f*deltaTime,0);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -155,7 +162,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	{
 		float deltaTime = Gdx.graphics.getDeltaTime();
 
-		//angle += 500.0f * deltaTime;
+		//angle += 180.0f * deltaTime;
 
 		//do all updates to the game
 	}
