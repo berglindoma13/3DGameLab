@@ -32,19 +32,30 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	private int colorLoc;
 
-	//private ModelMatrix modelMatrix;
-
     private Camera cam;
-	//private float angle;
+
+    //maze array
     private int[] maze;
+    private float[] close;
 
 	@Override
 	public void create () {
 
+        //initalize maze array with random numbers for random position of walls
 		maze = new int[100];
         for(int i = 0; i < 100; i++){
             Random rn = new Random();
             maze[i] = rn.nextInt(10);
+        }
+
+        close = new float[100];
+        for(int j = 0; j < 100; j++){
+            if(j%2 == 0){
+                close[j] = 0.8f;
+            }
+            else{
+                close[j] = 1.2f;
+            }
         }
 		Gdx.input.setInputProcessor(this);
 
@@ -173,18 +184,22 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
         int max = 10;
         int count = 0;
+
         for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
             ModelMatrix.main.pushMatrix();
+
             for(int j = 0; j < max; j++){
 
                 ModelMatrix.main.addTranslation(0,0,-1.1f);
                 ModelMatrix.main.pushMatrix();
-                if(maze[count++] % 2 == 0){
-                    ModelMatrix.main.addScale(2.0f,1.0f,0.3f);
+
+                if(maze[count] % 2 == 0){
+
+                    ModelMatrix.main.addScale(close[count++],1.0f,0.3f);
                 }
                 else{
-                    ModelMatrix.main.addScale(0.3f,1.0f,2.0f);
+                    ModelMatrix.main.addScale(0.3f,1.0f,close[count++]);
                 }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
