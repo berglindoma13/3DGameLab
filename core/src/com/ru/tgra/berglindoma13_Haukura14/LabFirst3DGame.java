@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 
+import java.awt.*;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
@@ -38,8 +39,18 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private int[] maze;
     private float[] close;
 
+    private static Point3D[] boxesz;
+    private static Point3D[] boxesx;
+    private static int countx;
+    private static int countz;
+
 	@Override
 	public void create () {
+
+        boxesz = new Point3D[100];
+        boxesx = new Point3D[100];
+        countx = 0;
+        countz = 0;
 
         //initalize maze array with random numbers for random position of walls
 		maze = new int[100];
@@ -192,6 +203,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         int max = 10;
         int count = 0;
 
+
         for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
             ModelMatrix.main.pushMatrix();
@@ -203,10 +215,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
                 if(maze[count] % 2 == 0){
 
-                    ModelMatrix.main.addScale(close[count++],1.0f,0.3f);
+                    ModelMatrix.main.addScale(1.2f,1.0f,0.3f);
+                    //ModelMatrix.main.addScale(close[count++],1.0f,0.3f);
+                    boxesx[countx] = new Point3D(i*1.1f,0,j*-1.1f);
+                    countx++;
                 }
                 else{
-                    ModelMatrix.main.addScale(0.3f,1.0f,close[count++]);
+                    ModelMatrix.main.addScale(0.3f,1.0f,1.2f);
+                    //ModelMatrix.main.addScale(0.3f,1.0f,close[count++]);
+                    boxesz[countz] = new Point3D(i*1.1f,0,j*-1.1f);
+                    countz++;
                 }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
@@ -216,12 +234,10 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         }
         ModelMatrix.main.popMatrix();
 
-
 		//BoxGraphic.drawOutlineCube();
 		//SphereGraphic.drawSolidSphere();
 		//SphereGraphic.drawOutlineSphere();
 		//ModelMatrix.main.popMatrix();
-
 	}
 
 	@Override
@@ -232,30 +248,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		update();
 		display();
 
-	}
-
-	//call rotate and translate on this matrix for camera movement
-	private void Look3D(Point3D eye, Point3D center, Vector3D up) {
-		
-		Vector3D n = Vector3D.difference(eye, center);
-		Vector3D u = up.cross(n);
-		n.normalize();
-		u.normalize();
-		Vector3D v = n.cross(u);
-
-		Vector3D minusEye = new Vector3D(-eye.x, -eye.y, -eye.z);
-		
-		float[] pm = new float[16];
-
-		pm[0] = u.x; pm[4] = u.y; pm[8] = u.z; pm[12] = minusEye.dot(u);
-		pm[1] = v.x; pm[5] = v.y; pm[9] = v.z; pm[13] = minusEye.dot(v);
-		pm[2] = n.x; pm[6] = n.y; pm[10] = n.z; pm[14] = minusEye.dot(n);
-		pm[3] = 0.0f; pm[7] = 0.0f; pm[11] = 0.0f; pm[15] = 1.0f;
-
-		matrixBuffer = BufferUtils.newFloatBuffer(16);
-		matrixBuffer.put(pm);
-		matrixBuffer.rewind();
-		Gdx.gl.glUniformMatrix4fv(viewMatrixLoc, 1, false, matrixBuffer);
 	}
 
 	private void OrthographicProjection3D(float left, float right, float bottom, float top, float near, float far) {
@@ -272,9 +264,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glUniformMatrix4fv(projectionMatrixLoc, 1, false, matrixBuffer);
 
 		pm[0] = 1.0f; pm[4] = 0.0f; pm[8] = 0.0f; pm[12] = 0.0f;
-		pm[1] = 0.0f; pm[5] = 1.0f; pm[9] = 0.0f; pm[13] = 0.0f;
-		pm[2] = 0.0f; pm[6] = 0.0f; pm[10] = 1.0f; pm[14] = 0.0f;
-		pm[3] = 0.0f; pm[7] = 0.0f; pm[11] = 0.0f; pm[15] = 1.0f;
+        pm[1] = 0.0f; pm[5] = 1.0f; pm[9] = 0.0f; pm[13] = 0.0f;
+        pm[2] = 0.0f; pm[6] = 0.0f; pm[10] = 1.0f; pm[14] = 0.0f;
+        pm[3] = 0.0f; pm[7] = 0.0f; pm[11] = 0.0f; pm[15] = 1.0f;
 
 		matrixBuffer = BufferUtils.newFloatBuffer(16);
 		matrixBuffer.put(pm);
@@ -299,6 +291,19 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	}
 
+	public static int getNumberOfBoxesX(){
+        return countx;
+    }
+    public static int getNumberOfBoxesZ(){
+        return countz;
+    }
+
+    public static Point3D[] getBoxesXArray(){
+        return boxesx;
+    }
+    public static Point3D[] getBoxesZArray(){
+        return boxesz;
+    }
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
