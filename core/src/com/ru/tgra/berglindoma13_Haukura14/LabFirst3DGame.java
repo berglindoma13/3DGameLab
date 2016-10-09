@@ -54,7 +54,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                 close[j] = 0.8f;
             }
             else{
-                close[j] = 1.2f;
+                close[j] = 1.4f;
             }
         }
 		Gdx.input.setInputProcessor(this);
