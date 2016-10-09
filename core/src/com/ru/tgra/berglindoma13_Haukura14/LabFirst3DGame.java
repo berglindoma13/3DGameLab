@@ -39,18 +39,22 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private int[] maze;
     private float[] close;
 
-    private static Point3D[] boxesz;
-    private static Point3D[] boxesx;
-    private static int countx;
-    private static int countz;
+    //private static Point3D[] boxesz;
+    //private static Point3D[] boxesx;
+    //private static int countx;
+    //private static int countz;
+	private static Wall[] walls;
+	private static int wallCounter;
 
 	@Override
 	public void create () {
 
-        boxesz = new Point3D[100];
-        boxesx = new Point3D[100];
-        countx = 0;
-        countz = 0;
+        //boxesz = new Point3D[100];
+        //boxesx = new Point3D[100];
+        //countx = 0;
+        //countz = 0;
+		walls = new Wall[100];
+		wallCounter = 0;
 
         //initalize maze array with random numbers for random position of walls
 		maze = new int[100];
@@ -217,14 +221,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
                     ModelMatrix.main.addScale(1.2f,1.0f,0.3f);
                     //ModelMatrix.main.addScale(close[count++],1.0f,0.3f);
-                    boxesx[countx] = new Point3D(i*1.1f,0,j*-1.1f);
-                    countx++;
+                    //boxesx[countx] = new Point3D(i*1.1f,0,j*-1.1f);
+                    //countx++;
+					walls[wallCounter++] = new Wall(i*1.1f, 0, j*-1.1f, 1.2f, 1.0f, 0.3f);
                 }
                 else{
                     ModelMatrix.main.addScale(0.3f,1.0f,1.2f);
                     //ModelMatrix.main.addScale(0.3f,1.0f,close[count++]);
-                    boxesz[countz] = new Point3D(i*1.1f,0,j*-1.1f);
-                    countz++;
+                    //boxesz[countz] = new Point3D(i*1.1f,0,j*-1.1f);
+                    //countz++;
+					walls[wallCounter++] = new Wall(i*1.1f, 0, j*-1.1f, 0.3f, 1.0f, 1.3f);
                 }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
@@ -291,19 +297,13 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	}
 
-	public static int getNumberOfBoxesX(){
-        return countx;
+	public static int getNumberOfWalls(){
+        return wallCounter;
     }
-    public static int getNumberOfBoxesZ(){
-        return countz;
+    public static Wall[] getWalls(){
+        return walls;
     }
 
-    public static Point3D[] getBoxesXArray(){
-        return boxesx;
-    }
-    public static Point3D[] getBoxesZArray(){
-        return boxesz;
-    }
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
