@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.model.data.ModelMaterial;
@@ -34,12 +35,17 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	//private ModelMatrix modelMatrix;
 
     private Camera cam;
-	private float angle;
+	//private float angle;
+    private int[] maze;
 
 	@Override
 	public void create () {
 
-		angle = 0.0f;
+		maze = new int[70];
+        for(int i = 0; i < 70; i++){
+            Random rn = new Random();
+            maze[i] = rn.nextInt(10);
+        }
 		Gdx.input.setInputProcessor(this);
 
 		String vertexShaderString;
@@ -138,10 +144,10 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             cam.slide(3.0f*deltaTime, 0,0);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            cam.slide(0,0,3.0f*deltaTime);
+            cam.slide(0,0,-3.0f*deltaTime);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-            cam.slide(0,0,-3.0f*deltaTime);
+            cam.slide(0,0,3.0f*deltaTime);
         }
 	}
 	
@@ -164,14 +170,26 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         cam.setShaderMatrix();
 		ModelMatrix.main.loadIdentityMatrix();
         ModelMatrix.main.pushMatrix();
-        //ModelMatrix.main.addTranslation(BoxPos.x, BoxPos.y, BoxPos.z);
-		//ModelMatrix.main.addScale(1.0f, 1.0f, 1.0f);
-		//ModelMatrix.main.setShaderMatrix();
-		BoxGraphic.drawSolidCube();
+
+        int max = 10;
+        for (int i = 0; i < max; i++){
+            ModelMatrix.main.addTranslation(1.1f,0,0);
+            ModelMatrix.main.pushMatrix();
+            for(int j = 0; j < max; j++){
+
+                ModelMatrix.main.addTranslation(0,0,-1.1f);
+                ModelMatrix.main.setShaderMatrix();
+                BoxGraphic.drawSolidCube();
+            }
+            ModelMatrix.main.popMatrix();
+        }
+        ModelMatrix.main.popMatrix();
+
+
 		//BoxGraphic.drawOutlineCube();
 		//SphereGraphic.drawSolidSphere();
 		//SphereGraphic.drawOutlineSphere();
-		ModelMatrix.main.popMatrix();
+		//ModelMatrix.main.popMatrix();
 
 	}
 
