@@ -41,8 +41,8 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	@Override
 	public void create () {
 
-		maze = new int[70];
-        for(int i = 0; i < 70; i++){
+		maze = new int[100];
+        for(int i = 0; i < 100; i++){
             Random rn = new Random();
             maze[i] = rn.nextInt(10);
         }
@@ -172,14 +172,23 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         ModelMatrix.main.pushMatrix();
 
         int max = 10;
+        int count = 0;
         for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
             ModelMatrix.main.pushMatrix();
             for(int j = 0; j < max; j++){
 
                 ModelMatrix.main.addTranslation(0,0,-1.1f);
+                ModelMatrix.main.pushMatrix();
+                if(maze[count++] % 2 == 0){
+                    ModelMatrix.main.addScale(2.0f,1.0f,0.3f);
+                }
+                else{
+                    ModelMatrix.main.addScale(0.3f,1.0f,2.0f);
+                }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
+                ModelMatrix.main.popMatrix();
             }
             ModelMatrix.main.popMatrix();
         }
