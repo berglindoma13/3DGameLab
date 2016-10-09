@@ -4,13 +4,13 @@ package com.ru.tgra.berglindoma13_Haukura14;
  * Created by Lenny on 9.10.2016.
  */
 public class Wall {
-    private float x;
-    private float y;
-    private float z;
+    public float x;
+    public float y;
+    public float z;
 
-    private float scaleX;
-    private float scaleY;
-    private float ScaleZ;
+    public float scaleX;
+    public float scaleY;
+    public float ScaleZ;
 
     Wall(float x, float y, float z, float scaleX, float scaleY, float scaleZ){
         this.x = x;
