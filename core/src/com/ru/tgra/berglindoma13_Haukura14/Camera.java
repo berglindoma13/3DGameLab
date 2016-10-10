@@ -102,8 +102,11 @@ public class Camera {
         int eyex = (int)eye.x;
         int eyez = (int)eye.z;
 
-        if(LabFirst3DGame.getCells[eyex][eyez].soutwall){
-            
+        if(LabFirst3DGame.getCells()[eyex][eyez].southwall){
+            //check collision
+        }
+        if(LabFirst3DGame.getCells()[eyex][eyez].westwall){
+            //check collision
         }
 
     }
