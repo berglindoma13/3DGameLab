@@ -99,10 +99,12 @@ public class Camera {
         //current position = eye
         //System.out.println("eye" + (int)eye.x + ", " + (int)eye.y + ", " + (int)eye.z);
 
-        System.out.println("Eye: " + eye.x + " " + eye.y + " " + eye.z);
+        //System.out.println("Eye: " + eye.x + " " + eye.y + " " + eye.z);
 
         int eyex = (int)eye.x;
         int eyez = (int)eye.z;
+
+        System.out.println("eyex: " + eyex + " eyez: " + eyez);
 
         //Bottom wall in current cell
         if(LabFirst3DGame.getCells()[eyex][eyez].southwall){
@@ -117,7 +119,7 @@ public class Camera {
             }
         }
         //Bottom wall in cell above
-        if(LabFirst3DGame.getCells()[eyex][eyez + 1].southwall){
+        if(LabFirst3DGame.getCells()[eyex][eyez - 1].southwall){
             if(eye.z <= eyez + 1 + 0.20){
                 eye.z = (float)eyez + 0.20f;
             }
