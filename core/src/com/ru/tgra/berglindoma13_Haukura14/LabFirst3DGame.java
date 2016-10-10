@@ -11,6 +11,7 @@ import java.nio.FloatBuffer;
 import java.util.Random;
 
 import com.badlogic.gdx.utils.BufferUtils;
+import com.sun.javafx.sg.prism.NGShape;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
 
@@ -186,29 +187,34 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         int max = 10;
 
 		for (int i = 0; i < max; i++){
-            ModelMatrix.main.addTranslation(1.1f,0,0);
-            ModelMatrix.main.pushMatrix();
+            //ModelMatrix.main.addTranslation(1.0f,0,0);
+            //ModelMatrix.main.pushMatrix();
 
             for(int j = 0; j < max; j++){
 
-                ModelMatrix.main.addTranslation(0,0,-1.1f);
-                ModelMatrix.main.pushMatrix();
+                //ModelMatrix.main.addTranslation(0,0,-1.0f);
+                //ModelMatrix.main.pushMatrix();
 
                 //TODO: WALL SHIT
 				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
-
+					ModelMatrix.main.pushMatrix();
+					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j - 0.15f);
+					ModelMatrix.main.addScale(1f,1f,0.3f);
+					ModelMatrix.main.setShaderMatrix();
+					BoxGraphic.drawSolidCube();
+					ModelMatrix.main.popMatrix();
 				}
 				if(cells[i][j].westwall){
-
+					ModelMatrix.main.pushMatrix();
+					ModelMatrix.main.addTranslation((float)i - 0.15f, 0, (float)j + 0.5f);
+					ModelMatrix.main.addScale(0.3f,1f,1f);
+					ModelMatrix.main.setShaderMatrix();
+					BoxGraphic.drawSolidCube();
+					ModelMatrix.main.popMatrix();
 				}
 
-
-                ModelMatrix.main.setShaderMatrix();
-                BoxGraphic.drawSolidCube();
-                ModelMatrix.main.popMatrix();
             }
-            ModelMatrix.main.popMatrix();
         }
         ModelMatrix.main.popMatrix();
 
