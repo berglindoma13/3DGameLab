@@ -168,7 +168,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		//angle += 180.0f * deltaTime;
 
-        cam.checkCollision();
+
 
 		//do all updates to the game
 	}
@@ -220,6 +220,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//put the code inside the update and display methods, depending on the nature of the code
 		update();
 		display();
+        cam.checkCollision();
 
 	}
 
