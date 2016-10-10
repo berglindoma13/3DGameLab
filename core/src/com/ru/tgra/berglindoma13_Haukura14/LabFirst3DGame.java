@@ -195,7 +195,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                 //ModelMatrix.main.addTranslation(0,0,-1.0f);
                 //ModelMatrix.main.pushMatrix();
 
-                //TODO: WALL SHIT
 				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
 					ModelMatrix.main.pushMatrix();
@@ -274,6 +273,10 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		matrixBuffer.rewind();
 		Gdx.gl.glUniformMatrix4fv(projectionMatrixLoc, 1, false, matrixBuffer);
 
+	}
+
+	public static Cell[][] getCells() {
+		return cells;
 	}
 
 	@Override
