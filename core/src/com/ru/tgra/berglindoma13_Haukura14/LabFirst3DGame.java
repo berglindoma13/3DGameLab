@@ -31,10 +31,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
     private Camera cam;
 
-    //maze array
-    private int[] maze;
-    private float[] close;
-
 	private static Cell[][] cells;
 
 	@Override
@@ -42,23 +38,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		cells = new Cell[10][10];
 
-
-        //initalize maze array with random numbers for random position of walls
-		maze = new int[100];
-        for(int i = 0; i < 100; i++){
-            Random rn = new Random();
-            maze[i] = rn.nextInt(10);
-        }
-
-        close = new float[100];
-        for(int j = 0; j < 100; j++){
-            if(j%2 == 0){
-                close[j] = 0.8f;
-            }
-            else{
-                close[j] = 1.4f;
-            }
-        }
 		Gdx.input.setInputProcessor(this);
 
 		String vertexShaderString;
