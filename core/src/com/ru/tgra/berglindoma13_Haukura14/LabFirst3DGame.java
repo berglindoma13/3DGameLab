@@ -200,11 +200,15 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         int count = 0;
         wallCounter = 0;
 
-        for (int i = 0; i < max; i++){
+        ModelMatrix.main.addTranslation(4.0f,0,-2.0f);
+        ModelMatrix.main.setShaderMatrix();
+        BoxGraphic.drawSolidCube();
+
+        /*for (int i = 1; i <= max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
             ModelMatrix.main.pushMatrix();
 
-            for(int j = 0; j < max; j++){
+            for(int j = 1; j <= max; j++){
 
                 ModelMatrix.main.addTranslation(0,0,-1.1f);
                 ModelMatrix.main.pushMatrix();
@@ -226,7 +230,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                 ModelMatrix.main.popMatrix();
             }
             ModelMatrix.main.popMatrix();
-        }
+        }*/
         ModelMatrix.main.popMatrix();
 
 
