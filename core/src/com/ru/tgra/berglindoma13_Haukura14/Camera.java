@@ -96,11 +96,15 @@ public class Camera {
     public void checkCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        //current position = eye
+        //System.out.println("eye" + (int)eye.x + ", " + (int)eye.y + ", " + (int)eye.z);
+
+        int eyex = (int)eye.x;
+        int eyez = (int)eye.z;
+
+        if(LabFirst3DGame.getCells[eyex][eyez].soutwall){
+            
+        }
 
     }
-
-    private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){
-        return new Point3D(middle.x + offX, middle.y + offY, middle.z + offZ);
-    }
-
 }

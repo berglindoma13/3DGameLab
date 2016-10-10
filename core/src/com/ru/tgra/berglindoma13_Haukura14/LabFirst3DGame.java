@@ -189,7 +189,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		for (int i = 0; i < max; i++){
 
             for(int j = 0; j < max; j++){
-                
+
                 //TODO: WALL SHIT
 				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
