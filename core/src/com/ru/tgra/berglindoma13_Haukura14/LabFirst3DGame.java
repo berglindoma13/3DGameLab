@@ -217,13 +217,13 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
                     ModelMatrix.main.addScale(1.2f,1.0f,0.3f);
                     count++;
-					walls[wallCounter++] = new Wall(i*1.1f, 0, j*-1.1f, 1.2f, 1.0f, 0.3f);
+					walls[wallCounter++] = new Wall(i*1.1f, 0f, j*-1.1f, 1.2f, 1.0f, 0.3f);
 
                 }
                 else {
                     ModelMatrix.main.addScale(0.3f, 1.0f, 1.2f);
                     count++;
-                    walls[wallCounter++] = new Wall(i * 1.1f, 0, j * -1.1f, 0.3f, 1.0f, 1.3f);
+                    walls[wallCounter++] = new Wall(i * 1.1f, 0f, j * -1.1f, 0.3f, 1.0f, 1.3f);
                 }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();

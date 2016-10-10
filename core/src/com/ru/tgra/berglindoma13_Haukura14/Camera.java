@@ -95,19 +95,24 @@ public class Camera {
 
     public void cheackCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
-        
-        //for(int i = 0; i < LabFirst3DGame.getNumberOfBoxesX(); i++){
+
+        for(int i = 0; i < LabFirst3DGame.getNumberOfWalls(); i++){
             /*Point3D middle = new Point3D();
             middle.x = LabFirst3DGame.getBoxesXArray()[i].x;
             middle.y = LabFirst3DGame.getBoxesXArray()[i].y;
             middle.z = LabFirst3DGame.getBoxesXArray()[i].z;
             */
 
-            for(Wall wall : LabFirst3DGame.getWalls()){
+            Wall wall = LabFirst3DGame.getWalls()[i];
+            if(this.eye.x > wall.x - (wall.scaleX/2) && this.eye.x < wall.x +(wall.scaleX/2) && this.eye.z == wall.z + (wall.scaleZ/2) && this.eye.z == wall.z - (wall.scaleZ/2) ){
+                hitWall = true;
+            }
+
+            /*for(Wall wall : LabFirst3DGame.getWalls()){
                 if(this.eye.x > wall.x - (wall.scaleX/2) && this.eye.x < wall.x +(wall.scaleX/2) && this.eye.z == wall.z + (wall.scaleZ/2) && this.eye.z == wall.z - (wall.scaleZ/2) ){
                     hitWall = true;
                 }
-            }
+            }*/
 
             /*Point3D point1 = makePoint(middle, middle.x-0.6f,middle.y,middle.z-0.5f);
             Point3D point2 = makePoint(middle, middle.x+0.6f,middle.y,middle.z-0.5f);
@@ -119,7 +124,7 @@ public class Camera {
 
             float thit2 = thit(point3,point4);*/
 
-        //}
+        }
     }
 
     private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){
