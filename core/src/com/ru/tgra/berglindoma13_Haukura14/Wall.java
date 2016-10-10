@@ -10,7 +10,7 @@ public class Wall {
 
     public float scaleX;
     public float scaleY;
-    public float ScaleZ;
+    public float scaleZ;
 
     Wall(float x, float y, float z, float scaleX, float scaleY, float scaleZ){
         this.x = x;
@@ -18,6 +18,6 @@ public class Wall {
         this.z = z;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
-        this.ScaleZ = scaleZ;
+        this.scaleZ = scaleZ;
     }
 }

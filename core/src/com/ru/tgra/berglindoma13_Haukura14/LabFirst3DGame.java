@@ -151,37 +151,39 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	private void input()
 	{
-		float deltaTime = Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			cam.pitch(90f * deltaTime);
-        }
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			cam.pitch(-90f * deltaTime);
+		if(!cam.hitWall) {
+			float deltaTime = Gdx.graphics.getDeltaTime();
+			if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+				cam.pitch(90f * deltaTime);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+				cam.pitch(-90f * deltaTime);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+				cam.yaw(-90f * deltaTime);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+				cam.yaw(90f * deltaTime);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+				cam.slide(0, 3.0f * deltaTime, 0);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+				cam.slide(0, -3.0f * deltaTime, 0);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+				cam.slide(-3.0f * deltaTime, 0, 0);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+				cam.slide(3.0f * deltaTime, 0, 0);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+				cam.slide(0, 0, -3.0f * deltaTime);
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+				cam.slide(0, 0, 3.0f * deltaTime);
+			}
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			cam.yaw(-90f * deltaTime);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			cam.yaw(90f * deltaTime);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.E)) {
-            cam.slide(0, 3.0f*deltaTime,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.slide(0, -3.0f*deltaTime,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            cam.slide(-3.0f*deltaTime, 0,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            cam.slide(3.0f*deltaTime, 0,0);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            cam.slide(0,0,-3.0f*deltaTime);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-            cam.slide(0,0,3.0f*deltaTime);
-        }
 	}
 	
 	private void update()

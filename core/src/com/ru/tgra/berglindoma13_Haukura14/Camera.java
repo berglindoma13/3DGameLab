@@ -16,6 +16,7 @@ public class Camera {
 
     private int viewMatrixPointer;
     private FloatBuffer matrixBuffer;
+    public boolean hitWall;
 
     public Camera(int matrixPointer){
         this.viewMatrixPointer = matrixPointer;
@@ -25,6 +26,8 @@ public class Camera {
         u = new Vector3D(1,0,0);
         v = new Vector3D(0,1,0);
         n = new Vector3D(0,0,1);
+
+        hitWall = false;
     }
 
     public void look(Point3D eye, Point3D center, Vector3D up){
@@ -93,13 +96,20 @@ public class Camera {
     public void cheackCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        for(int i = 0; i < LabFirst3DGame.getNumberOfBoxesX(); i++){
-            Point3D middle = new Point3D();
+        //for(int i = 0; i < LabFirst3DGame.getNumberOfBoxesX(); i++){
+            /*Point3D middle = new Point3D();
             middle.x = LabFirst3DGame.getBoxesXArray()[i].x;
             middle.y = LabFirst3DGame.getBoxesXArray()[i].y;
             middle.z = LabFirst3DGame.getBoxesXArray()[i].z;
+            */
 
-            Point3D point1 = makePoint(middle, middle.x-0.6f,middle.y,middle.z-0.5f);
+            for(Wall wall : LabFirst3DGame.getWalls()){
+                if(this.eye.x > wall.x - (wall.scaleX/2) && this.eye.x < wall.x +(wall.scaleX/2) && this.eye.z == wall.z + (wall.scaleZ/2) && this.eye.z == wall.z - (wall.scaleZ/2) ){
+                    hitWall = true;
+                }
+            }
+
+            /*Point3D point1 = makePoint(middle, middle.x-0.6f,middle.y,middle.z-0.5f);
             Point3D point2 = makePoint(middle, middle.x+0.6f,middle.y,middle.z-0.5f);
 
             float thit1 = thit(point1,point2);
@@ -107,9 +117,9 @@ public class Camera {
             Point3D point3 = makePoint(middle, middle.x-0.6f,middle.y,middle.z+0.5f);
             Point3D point4 = makePoint(middle, middle.x+0.6f,middle.y,middle.z+0.5f);
 
-            float thit2 = thit(point3,point4);
+            float thit2 = thit(point3,point4);*/
 
-        }
+        //}
     }
 
     private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){
