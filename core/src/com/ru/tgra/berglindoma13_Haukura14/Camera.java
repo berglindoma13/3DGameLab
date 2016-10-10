@@ -104,6 +104,7 @@ public class Camera {
 
         if(LabFirst3DGame.getCells()[eyex][eyez].southwall){
             //check collision
+
         }
         if(LabFirst3DGame.getCells()[eyex][eyez].westwall){
             //check collision
