@@ -127,38 +127,36 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	private void input()
 	{
-		if(!cam.hitWall) {
-			float deltaTime = Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-				cam.pitch(90f * deltaTime);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-				cam.pitch(-90f * deltaTime);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-				cam.yaw(-90f * deltaTime);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-				cam.yaw(90f * deltaTime);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-				cam.slide(0, 3.0f * deltaTime, 0);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-				cam.slide(0, -3.0f * deltaTime, 0);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-				cam.slide(-3.0f * deltaTime, 0, 0);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-				cam.slide(3.0f * deltaTime, 0, 0);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-				cam.slide(0, 0, -3.0f * deltaTime);
-			}
-			if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-				cam.slide(0, 0, 3.0f * deltaTime);
-			}
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			cam.pitch(90f * deltaTime);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			cam.pitch(-90f * deltaTime);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			cam.yaw(-90f * deltaTime);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			cam.yaw(90f * deltaTime);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+			cam.slide(0, 3.0f * deltaTime, 0);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+			cam.slide(0, -3.0f * deltaTime, 0);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+			cam.slide(-3.0f * deltaTime, 0, 0);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+			cam.slide(3.0f * deltaTime, 0, 0);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+			cam.slide(0, 0, -3.0f * deltaTime);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+			cam.slide(0, 0, 3.0f * deltaTime);
 		}
 	}
 	
@@ -196,6 +194,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j - 0.15f);
 					ModelMatrix.main.addScale(1f,1f,0.3f);
+					Gdx.gl.glUniform4f(colorLoc, 0.0f, 1f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
@@ -204,6 +203,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i - 0.15f, 0, (float)j + 0.5f);
 					ModelMatrix.main.addScale(0.3f,1f,1f);
+					Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.3f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();

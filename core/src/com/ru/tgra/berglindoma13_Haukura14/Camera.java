@@ -99,18 +99,36 @@ public class Camera {
         //current position = eye
         //System.out.println("eye" + (int)eye.x + ", " + (int)eye.y + ", " + (int)eye.z);
 
+        System.out.println("Eye: " + eye.x + " " + eye.y + " " + eye.z);
+
         int eyex = (int)eye.x;
         int eyez = (int)eye.z;
 
+        //Bottom wall in current cell
         if(LabFirst3DGame.getCells()[eyex][eyez].southwall){
-            //check collision
-            if(eye.z <= eyez + 0.20){
+            if(eye.z >= eyez - 0.20){
+                eye.z = (float)eyez - 0.20f;
+            }
+        }
+        //Left wall in current cell
+        if(LabFirst3DGame.getCells()[eyex][eyez].westwall){
+            if(eye.x <= eyex + 0.20){
+                eye.x = (float)eyex + 0.20f;
+            }
+        }
+        //Bottom wall in cell above
+        if(LabFirst3DGame.getCells()[eyex][eyez + 1].southwall){
+            if(eye.z <= eyez + 1 + 0.20){
                 eye.z = (float)eyez + 0.20f;
             }
         }
-        if(LabFirst3DGame.getCells()[eyex][eyez].westwall){
-            //check collision
+        //Left wall in cell on right
+        if(LabFirst3DGame.getCells()[eyex + 1][eyez].westwall){
+            if(eye.x >= eyex + 1 - 0.20){
+                eye.z = (float)eyex - 0.20f;
+            }
         }
+
 
     }
 }
