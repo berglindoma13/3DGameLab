@@ -108,31 +108,31 @@ public class Camera {
 
         if(i >= 0 && i < 10 && j > 0 && j <= 10){
             //Bottom wall in current cell
-            if(LabFirst3DGame.getCells()[i][j].southwall){
-                if(eye.z >= j + 1 - 0.20){
-                    System.out.println("eye.z >= j - 0.20");
+            if(LabFirst3DGame.getCells()[i][j+1].southwall){
+                if(eye.z >= j + 1 - 0.15){
+                    System.out.println("colliding with bottom wall in current cell");
                     eye.z = (float)j + 1 - 0.20f;
                 }
             }
             //Left wall in current cell
             if(LabFirst3DGame.getCells()[i][j].westwall){
-                if(eye.x <= i + 0.20){
-                    System.out.println("eye.x <= i + 0.20");
-                    eye.x = (float)i + 0.20f;
+                if(eye.x <= i + 0.15){
+                    System.out.println("colliding with left wall in current cell");
+                    eye.x = (float)i + 0.15f;
                 }
             }
             //Bottom wall in cell above
-            if(LabFirst3DGame.getCells()[i][j - 1].southwall){
-                if(eye.z <= j + 0.20){
-                    System.out.println("eye.z <= j - 1 + 0.20");
-                    eye.z = (float)j + 0.20f;
+            if(LabFirst3DGame.getCells()[i][j].southwall){
+                if(eye.z <= j + 0.15){
+                    System.out.println("colliding bottom wall in above cell");
+                    eye.z = (float)j + 0.15f;
                 }
             }
             //Left wall in cell on right
             if(LabFirst3DGame.getCells()[i + 1][j].westwall){
-                if(eye.x >= i + 1 - 0.20){
-                    System.out.println("eye.x >= i + 1 - 0.20");
-                    eye.x = (float)i + 1 - 0.20f;
+                if(eye.x >= i + 1 - 0.15){
+                    System.out.println("colliding with wall in cell on right");
+                    eye.x = (float)i + 1 - 0.15f;
                 }
             }
         }
