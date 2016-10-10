@@ -104,6 +104,9 @@ public class Camera {
 
         if(LabFirst3DGame.getCells()[eyex][eyez].southwall){
             //check collision
+            if(eye.z <= eyez + 0.20){
+                eye.z = (float)eyez + 0.20f;
+            }
         }
         if(LabFirst3DGame.getCells()[eyex][eyez].westwall){
             //check collision
