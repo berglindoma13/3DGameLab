@@ -221,6 +221,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             }
         }
         ModelMatrix.main.popMatrix();
+        cam.checkCollision();   
 	}
 
 	@Override
@@ -230,7 +231,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//put the code inside the update and display methods, depending on the nature of the code
 		update();
 		display();
-        cam.checkCollision();
 
 	}
 
