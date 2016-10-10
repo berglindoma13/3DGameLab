@@ -33,19 +33,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private Camera cam;
 
 	private static Cell[][] cells;
-	private boolean[] randomSouth;
-	private boolean[] randomWest;
 
 	@Override
 	public void create () {
 
 		cells = new Cell[10][10];
-		randomSouth = new boolean[100];
-		randomWest = new boolean[100];
 
-		for(int i = 0; i < 100; i++){
-			randomSouth[i] = (Math.random() < 0.5);
-			randomWest[i] = (Math.random() < 0.5);
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				cells[i][j] = new Cell((Math.random() < 0.5), (Math.random() < 0.5));
+			}
 		}
 
 		Gdx.input.setInputProcessor(this);
@@ -199,7 +196,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             for(int j = 0; j < max; j++){
 
                 //TODO: WALL SHIT
-				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
 					ModelMatrix.main.pushMatrix();
                     //position = i+0.5, 0, j-0.15
