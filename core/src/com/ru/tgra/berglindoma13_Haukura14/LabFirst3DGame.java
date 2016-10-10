@@ -39,22 +39,14 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private int[] maze;
     private float[] close;
 
-    //private static Point3D[] boxesz;
-    //private static Point3D[] boxesx;
-    //private static int countx;
-    //private static int countz;
 	private static Wall[] walls;
 	private static int wallCounter;
 
 	@Override
 	public void create () {
 
-        //boxesz = new Point3D[100];
-        //boxesx = new Point3D[100];
-        //countx = 0;
-        //countz = 0;
 		walls = new Wall[100];
-		wallCounter = 0;
+
 
         //initalize maze array with random numbers for random position of walls
 		maze = new int[100];
@@ -146,7 +138,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         //change the first point to change the starting view
 		//Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
         cam = new Camera(viewMatrixLoc);
-        cam.look(new Point3D(-13.0f, 7.0f, 9.0f), new Point3D(0,3,0), new Vector3D(0,1,0));
+        cam.look(new Point3D(4.0f, 0.0f, 2.0f), new Point3D(4.0f,0,0), new Vector3D(0,1,0));
 	}
 
 	private void input()
@@ -192,6 +184,8 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		//angle += 180.0f * deltaTime;
 
+        cam.cheackCollision();
+
 		//do all updates to the game
 	}
 	
@@ -208,7 +202,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
         int max = 10;
         int count = 0;
-
+        wallCounter = 0;
 
         for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
@@ -222,17 +216,14 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                 if(maze[count] % 2 == 0){
 
                     ModelMatrix.main.addScale(1.2f,1.0f,0.3f);
-                    //ModelMatrix.main.addScale(close[count++],1.0f,0.3f);
-                    //boxesx[countx] = new Point3D(i*1.1f,0,j*-1.1f);
-                    //countx++;
+                    count++;
 					walls[wallCounter++] = new Wall(i*1.1f, 0, j*-1.1f, 1.2f, 1.0f, 0.3f);
+
                 }
-                else{
-                    ModelMatrix.main.addScale(0.3f,1.0f,1.2f);
-                    //ModelMatrix.main.addScale(0.3f,1.0f,close[count++]);
-                    //boxesz[countz] = new Point3D(i*1.1f,0,j*-1.1f);
-                    //countz++;
-					walls[wallCounter++] = new Wall(i*1.1f, 0, j*-1.1f, 0.3f, 1.0f, 1.3f);
+                else {
+                    ModelMatrix.main.addScale(0.3f, 1.0f, 1.2f);
+                    count++;
+                    walls[wallCounter++] = new Wall(i * 1.1f, 0, j * -1.1f, 0.3f, 1.0f, 1.3f);
                 }
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
