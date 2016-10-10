@@ -187,14 +187,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         int max = 10;
 
 		for (int i = 0; i < max; i++){
-            //ModelMatrix.main.addTranslation(1.0f,0,0);
-            //ModelMatrix.main.pushMatrix();
 
             for(int j = 0; j < max; j++){
-
-                //ModelMatrix.main.addTranslation(0,0,-1.0f);
-                //ModelMatrix.main.pushMatrix();
-
+                
                 //TODO: WALL SHIT
 				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
@@ -213,16 +208,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
 				}
-
             }
         }
         ModelMatrix.main.popMatrix();
-
-
-		//BoxGraphic.drawOutlineCube();
-		//SphereGraphic.drawSolidSphere();
-		//SphereGraphic.drawOutlineSphere();
-		//ModelMatrix.main.popMatrix();
 	}
 
 	@Override
