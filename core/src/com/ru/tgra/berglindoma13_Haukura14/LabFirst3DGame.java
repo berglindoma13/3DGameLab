@@ -32,11 +32,20 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private Camera cam;
 
 	private static Cell[][] cells;
+	private boolean[] randomSouth;
+	private boolean[] randomWest;
 
 	@Override
 	public void create () {
 
 		cells = new Cell[10][10];
+		randomSouth = new boolean[100];
+		randomWest = new boolean[100];
+
+		for(int i = 0; i < 100; i++){
+			randomSouth[i] = (Math.random() < 0.5);
+			randomWest[i] = (Math.random() < 0.5);
+		}
 
 		Gdx.input.setInputProcessor(this);
 
@@ -175,7 +184,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         ModelMatrix.main.pushMatrix();
 
         int max = 10;
-        int count = 0;
 
 		for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
@@ -187,6 +195,15 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                 ModelMatrix.main.pushMatrix();
 
                 //TODO: WALL SHIT
+				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
+				if(cells[i][j].southwall){
+					
+				}
+				if(cells[i][j].westwall){
+
+				}
+
+
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
                 ModelMatrix.main.popMatrix();
@@ -252,13 +269,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glUniformMatrix4fv(projectionMatrixLoc, 1, false, matrixBuffer);
 
 	}
-
-	public static int getNumberOfWalls(){
-        return wallCounter;
-    }
-    public static Wall[] getWalls(){
-        return walls;
-    }
 
 	@Override
 	public boolean keyDown(int keycode) {
