@@ -192,7 +192,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 				cells[i][j] = new Cell(randomSouth[10*i+j], randomWest[10*i+j]);
 				if(cells[i][j].southwall){
 					ModelMatrix.main.pushMatrix();
+                    //position = i+0.5, 0, j-0.15
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j - 0.15f);
+                    //wall size = 1x1x0.3
 					ModelMatrix.main.addScale(1f,1f,0.3f);
 					Gdx.gl.glUniform4f(colorLoc, 0.0f, 1f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
@@ -201,7 +203,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 				}
 				if(cells[i][j].westwall){
 					ModelMatrix.main.pushMatrix();
+                    //position = i - 0.15, 0, j + 0.5
 					ModelMatrix.main.addTranslation((float)i - 0.15f, 0, (float)j + 0.5f);
+                    //wall size = 0.3x1x1
 					ModelMatrix.main.addScale(0.3f,1f,1f);
 					Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.3f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
