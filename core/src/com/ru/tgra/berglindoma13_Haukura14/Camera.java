@@ -109,9 +109,9 @@ public class Camera {
         if(i >= 0 && i < 10 && j > 0 && j <= 10){
             //Bottom wall in current cell
             if(LabFirst3DGame.getCells()[i][j].southwall){
-                if(eye.z >= j - 0.20){
+                if(eye.z >= j + 1 - 0.20){
                     System.out.println("eye.z >= j - 0.20");
-                    eye.z = (float)j - 0.20f;
+                    eye.z = (float)j + 1 - 0.20f;
                 }
             }
             //Left wall in current cell
@@ -123,9 +123,9 @@ public class Camera {
             }
             //Bottom wall in cell above
             if(LabFirst3DGame.getCells()[i][j - 1].southwall){
-                if(eye.z <= j - 1 + 0.20){
+                if(eye.z <= j + 0.20){
                     System.out.println("eye.z <= j - 1 + 0.20");
-                    eye.z = (float)j - 1 + 0.20f;
+                    eye.z = (float)j + 0.20f;
                 }
             }
             //Left wall in cell on right
