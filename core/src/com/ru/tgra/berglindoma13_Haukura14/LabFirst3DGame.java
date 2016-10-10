@@ -7,13 +7,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 
-import java.awt.*;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.model.data.ModelMaterial;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.BufferUtils;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
@@ -184,7 +180,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		//angle += 180.0f * deltaTime;
 
-        cam.cheackCollision();
+        cam.checkCollision();
 
 		//do all updates to the game
 	}
@@ -232,6 +228,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             ModelMatrix.main.popMatrix();
         }
         ModelMatrix.main.popMatrix();
+
 
 		//BoxGraphic.drawOutlineCube();
 		//SphereGraphic.drawSolidSphere();

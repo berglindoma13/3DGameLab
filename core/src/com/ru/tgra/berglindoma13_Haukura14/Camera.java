@@ -93,36 +93,23 @@ public class Camera {
         Gdx.gl.glUniformMatrix4fv(viewMatrixPointer, 1, false, matrixBuffer);
     }
 
-    public void cheackCollision(){
+    public void checkCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
         for(int i = 0; i < LabFirst3DGame.getNumberOfWalls(); i++){
-            /*Point3D middle = new Point3D();
-            middle.x = LabFirst3DGame.getBoxesXArray()[i].x;
-            middle.y = LabFirst3DGame.getBoxesXArray()[i].y;
-            middle.z = LabFirst3DGame.getBoxesXArray()[i].z;
-            */
 
             Wall wall = LabFirst3DGame.getWalls()[i];
-            if(this.eye.x > wall.x - (wall.scaleX/2) && this.eye.x < wall.x +(wall.scaleX/2) && this.eye.z == wall.z + (wall.scaleZ/2) && this.eye.z == wall.z - (wall.scaleZ/2) ){
+
+            if((eye.z >= wall.z + (wall.scaleZ/2) + 0.02) && (eye.z <= wall.z + (wall.scaleZ/2) + 0.05)){
+                System.out.println("eye: " + eye.x + ", " + eye.y + ", " + eye.z);
+                System.out.println("wall with scale: " + wall.x + ", " + wall.y + ", " + (wall.z+(wall.scaleZ/2)));
+                System.out.println("scalez: " + wall.scaleZ);
                 hitWall = true;
             }
 
-            /*for(Wall wall : LabFirst3DGame.getWalls()){
-                if(this.eye.x > wall.x - (wall.scaleX/2) && this.eye.x < wall.x +(wall.scaleX/2) && this.eye.z == wall.z + (wall.scaleZ/2) && this.eye.z == wall.z - (wall.scaleZ/2) ){
-                    hitWall = true;
-                }
+            /*if(this.eye.x >= wall.x - (wall.scaleX/2) && this.eye.x <= wall.x +(wall.scaleX/2) && (this.eye.z == wall.z + (wall.scaleZ/2) || this.eye.z == wall.z - (wall.scaleZ/2)) ){
+                hitWall = true;
             }*/
-
-            /*Point3D point1 = makePoint(middle, middle.x-0.6f,middle.y,middle.z-0.5f);
-            Point3D point2 = makePoint(middle, middle.x+0.6f,middle.y,middle.z-0.5f);
-
-            float thit1 = thit(point1,point2);
-
-            Point3D point3 = makePoint(middle, middle.x-0.6f,middle.y,middle.z+0.5f);
-            Point3D point4 = makePoint(middle, middle.x+0.6f,middle.y,middle.z+0.5f);
-
-            float thit2 = thit(point3,point4);*/
 
         }
     }
