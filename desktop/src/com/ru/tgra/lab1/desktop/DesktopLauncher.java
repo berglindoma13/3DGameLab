@@ -13,8 +13,8 @@ public class DesktopLauncher {
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 
 		config.title = "Lab1"; // or whatever you like
-		config.width = (int)size.getWidth();  //experiment with
-		config.height = (int)size.getHeight();  //the window size
+		config.width = 768; //(int)size.getWidth();  //experiment with
+		config.height = 769; //(int)size.getHeight();  //the window size
 		//config.x = 150;
 		//config.y = 50;
 		//config.fullscreen = true;
