@@ -38,7 +38,7 @@ public class Camera {
 
     public void slide(float delU, float delV, float delN){
         eye.x += delU*u.x + delV*v.x + delN*n.x;
-        eye.y += delU*u.y + delV*v.y + delN*n.y;
+        //eye.y += delU*u.y + delV*v.y + delN*n.y;
         eye.z += delU*u.z + delV*v.z + delN*n.z;
     }
 
@@ -92,40 +92,12 @@ public class Camera {
 
     public void cheackCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
+        
 
-        for(int i = 0; i < LabFirst3DGame.getNumberOfBoxesX(); i++){
-            Point3D middle = new Point3D();
-            middle.x = LabFirst3DGame.getBoxesXArray()[i].x;
-            middle.y = LabFirst3DGame.getBoxesXArray()[i].y;
-            middle.z = LabFirst3DGame.getBoxesXArray()[i].z;
-
-            Point3D point1 = makePoint(middle, middle.x-0.6f,middle.y,middle.z-0.5f);
-            Point3D point2 = makePoint(middle, middle.x+0.6f,middle.y,middle.z-0.5f);
-
-            float thit1 = thit(point1,point2);
-
-            Point3D point3 = makePoint(middle, middle.x-0.6f,middle.y,middle.z+0.5f);
-            Point3D point4 = makePoint(middle, middle.x+0.6f,middle.y,middle.z+0.5f);
-
-            float thit2 = thit(point3,point4);
-
-        }
     }
 
     private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){
         return new Point3D(middle.x + offX, middle.y + offY, middle.z + offZ);
     }
 
-    private float thit(Point3D a, Point3D b){
-        Vector3D v = Vector3D.difference(a,b);
-
-        //Vector 3D normalV = v.getNormal();
-
-        //Vector c = Vector3D.difference(a,positionvector);
-
-        //float thit = ((normalV.x * c.x) + (normalV.y * c.y) + (normalV.z * c.z))/((normalV.x * directionVector.x) + (normalV.y * directionVector.y) + (normalV.z * directionVector.z));
-        //return thit;
-
-        return 0.0f;
-    }
 }
