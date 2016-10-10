@@ -96,7 +96,7 @@ public class Camera {
     public void checkCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        
+
     }
 
     private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){

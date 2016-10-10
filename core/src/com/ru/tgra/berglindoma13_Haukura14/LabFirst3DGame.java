@@ -35,13 +35,12 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
     private int[] maze;
     private float[] close;
 
-	private static Wall[] walls;
-	private static int wallCounter;
+	private static Cell[][] cells;
 
 	@Override
 	public void create () {
 
-		walls = new Wall[100];
+		cells = new Cell[10][10];
 
 
         //initalize maze array with random numbers for random position of walls
@@ -198,39 +197,23 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
         int max = 10;
         int count = 0;
-        wallCounter = 0;
 
-        ModelMatrix.main.addTranslation(4.0f,0,-2.0f);
-        ModelMatrix.main.setShaderMatrix();
-        BoxGraphic.drawSolidCube();
-
-        /*for (int i = 1; i <= max; i++){
+		for (int i = 0; i < max; i++){
             ModelMatrix.main.addTranslation(1.1f,0,0);
             ModelMatrix.main.pushMatrix();
 
-            for(int j = 1; j <= max; j++){
+            for(int j = 0; j < max; j++){
 
                 ModelMatrix.main.addTranslation(0,0,-1.1f);
                 ModelMatrix.main.pushMatrix();
 
-                if(maze[count] % 2 == 0){
-
-                    ModelMatrix.main.addScale(1.2f,1.0f,0.3f);
-                    count++;
-					walls[wallCounter++] = new Wall(i*1.1f, 0f, j*-1.1f, 1.2f, 1.0f, 0.3f);
-
-                }
-                else {
-                    ModelMatrix.main.addScale(0.3f, 1.0f, 1.2f);
-                    count++;
-                    walls[wallCounter++] = new Wall(i * 1.1f, 0f, j * -1.1f, 0.3f, 1.0f, 1.3f);
-                }
+                //TODO: WALL SHIT
                 ModelMatrix.main.setShaderMatrix();
                 BoxGraphic.drawSolidCube();
                 ModelMatrix.main.popMatrix();
             }
             ModelMatrix.main.popMatrix();
-        }*/
+        }
         ModelMatrix.main.popMatrix();
 
 
