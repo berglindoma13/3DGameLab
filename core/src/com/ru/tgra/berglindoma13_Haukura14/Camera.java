@@ -96,22 +96,7 @@ public class Camera {
     public void checkCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        for(int i = 0; i < LabFirst3DGame.getNumberOfWalls(); i++){
-
-            Wall wall = LabFirst3DGame.getWalls()[i];
-
-            if((eye.z >= wall.z + (wall.scaleZ/2) + 0.02) && (eye.z <= wall.z + (wall.scaleZ/2) + 0.05)){
-                System.out.println("eye: " + eye.x + ", " + eye.y + ", " + eye.z);
-                System.out.println("wall with scale: " + wall.x + ", " + wall.y + ", " + (wall.z+(wall.scaleZ/2)));
-                System.out.println("scalez: " + wall.scaleZ);
-                hitWall = true;
-            }
-
-            /*if(this.eye.x >= wall.x - (wall.scaleX/2) && this.eye.x <= wall.x +(wall.scaleX/2) && (this.eye.z == wall.z + (wall.scaleZ/2) || this.eye.z == wall.z - (wall.scaleZ/2)) ){
-                hitWall = true;
-            }*/
-
-        }
+        
     }
 
     private Point3D makePoint(Point3D middle, float offX, float offY, float offZ){
