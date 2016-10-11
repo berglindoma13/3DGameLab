@@ -7,9 +7,11 @@ public class Cell {
 
     public boolean northwall;
     public boolean westwall;
+    public boolean object;
 
     Cell(boolean northwall, boolean westwall){
         this.northwall = northwall;
         this.westwall = westwall;
+        this.object = false;
     }
 }

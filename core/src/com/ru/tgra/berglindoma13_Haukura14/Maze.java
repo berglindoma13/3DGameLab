@@ -1,14 +1,19 @@
 package com.ru.tgra.berglindoma13_Haukura14;
 
+import java.util.Random;
+
 /**
  * Created by Berglind on 11.10.2016.
  */
 public class Maze {
 
     public Cell[][] cells;
+    Random randomPos;
+
 
     public Maze() {
         cells = new Cell[11][11];
+        randomPos = new Random();
 
         cells[0][0] = new Cell(true,true);
         cells[0][1] = new Cell(false,true);
@@ -16,7 +21,7 @@ public class Maze {
         cells[0][3] = new Cell(false,true);
         cells[0][4] = new Cell(false,true);
         cells[0][5] = new Cell(false,true);
-        cells[0][6] = new Cell(true,false);
+        cells[0][6] = new Cell(true,true);
         cells[0][7] = new Cell(true,true);
         cells[0][8] = new Cell(true,true);
         cells[0][9] = new Cell(false,true);
@@ -141,6 +146,8 @@ public class Maze {
         cells[10][8] = new Cell(false,true);
         cells[10][9] = new Cell(false,false);
         cells[10][10] = new Cell(false,false);
+
+        cells[randomPos.nextInt(9)][randomPos.nextInt(9)].object = true;
 
     }
 }

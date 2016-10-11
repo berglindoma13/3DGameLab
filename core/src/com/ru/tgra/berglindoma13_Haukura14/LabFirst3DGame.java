@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
 
+import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.utils.BufferUtils;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
@@ -112,7 +113,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
         cam = new Camera(viewMatrixLoc, projectionMatrixLoc);
         cam.perspectiveProjection(100.0f,1.0f,0.01f,90.0f);
-        cam.look(new Point3D(-0.5f, 0.0f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
+        cam.look(new Point3D(0.5f, 0.1f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
 
 
 	}
@@ -200,7 +201,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
             for(int j = 0; j < max; j++){
 
-                //TODO: WALL SHIT
 				if(maze.cells[i][j].northwall){
 					ModelMatrix.main.pushMatrix();
                     //position = i+0.5, 0, j-0.15
@@ -221,6 +221,15 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.3f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
+					ModelMatrix.main.popMatrix();
+				}
+				if(maze.cells[i][j].object){
+					ModelMatrix.main.pushMatrix();
+					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j + 0.5f);
+					ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
+					Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.0f, 0.9f, 1.0f);
+					ModelMatrix.main.setShaderMatrix();
+					SphereGraphic.drawSolidSphere();
 					ModelMatrix.main.popMatrix();
 				}
             }
