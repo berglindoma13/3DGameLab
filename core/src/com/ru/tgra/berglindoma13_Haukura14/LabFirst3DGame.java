@@ -44,8 +44,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
 
         cam = new Camera(shader.getViewMatrixLoc(), shader.getProjectionMatrixLoc());
+
         cam.perspectiveProjection(100.0f,1.0f,0.01f,60.0f);
-        cam.look(new Point3D(0.5f, -0.3f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
+        cam.look(new Point3D(4.5f, -0.3f, 9.5f), new Point3D(5f,0,0), new Vector3D(0,1,0));
 	}
 
 	private void input()
