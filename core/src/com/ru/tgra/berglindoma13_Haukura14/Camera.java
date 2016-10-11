@@ -17,8 +17,16 @@ public class Camera {
     private int viewMatrixPointer;
     private FloatBuffer matrixBuffer;
     public boolean hitWall;
+    private int projectionMatrixPointer;
 
-    public Camera(int matrixPointer){
+    float left;
+    float right;
+    float bottom;
+    float top;
+    float near;
+    float far;
+
+    public Camera(int matrixPointer, int projectionMatrixPointer){
         this.viewMatrixPointer = matrixPointer;
         matrixBuffer = BufferUtils.newFloatBuffer(16);
 
@@ -79,9 +87,19 @@ public class Camera {
     }
 
     public void setShaderMatrix(){
-        Vector3D minusEye = new Vector3D(-eye.x, -eye.y, -eye.z);
-
         float[] pm = new float[16];
+
+        pm[0] = (2.0f * near) / (right - left); pm[4] = 0.0f; pm[8] = (right + left) / (right - left); pm[12] = 0.0f;
+        pm[1] = 0.0f; pm[5] = (2.0f * near) / (top - bottom); pm[9] = (top + bottom) / (top - bottom); pm[13] = 0.0f;
+        pm[2] = 0.0f; pm[6] = 0.0f; pm[10] = -(far + near) / (far - near); pm[14] = -(2.0f * far * near) / (far - near);
+        pm[3] = 0.0f; pm[7] = 0.0f; pm[11] = -1.0f; pm[15] = 0.0f;
+
+        matrixBuffer = BufferUtils.newFloatBuffer(16);
+        matrixBuffer.put(pm);
+        matrixBuffer.rewind();
+        Gdx.gl.glUniformMatrix4fv(projectionMatrixPointer, 1, false, matrixBuffer);
+
+        Vector3D minusEye = new Vector3D(-eye.x, -eye.y, -eye.z);
 
         pm[0] = u.x; pm[4] = u.y; pm[8] = u.z; pm[12] = minusEye.dot(u);
         pm[1] = v.x; pm[5] = v.y; pm[9] = v.z; pm[13] = minusEye.dot(v);
@@ -91,6 +109,15 @@ public class Camera {
         matrixBuffer.put(pm);
         matrixBuffer.rewind();
         Gdx.gl.glUniformMatrix4fv(viewMatrixPointer, 1, false, matrixBuffer);
+    }
+
+    public void perspectiveProjection(float fov,float ratio,float near,float far){
+        this.top = near * (float)Math.tan(((double)fov / 2.0) * Math.PI / 180.0);
+        this.bottom = -top;
+        this.right = ratio * top;
+        this.left = -right;
+        this.near = near;
+        this.far = far;
     }
 
     public void checkCollision(){
@@ -111,7 +138,7 @@ public class Camera {
             if(LabFirst3DGame.getCells()[i][j+1].northwall){
                 if(eye.z >= j + 1 - 0.15){
                     //System.out.println("colliding with bottom wall in current cell");
-                    eye.z = (float)j + 1 - 0.20f;
+                    eye.z = (float)j + 1 - 0.15f;
                 }
             }
             //Left wall in current cell
