@@ -169,7 +169,7 @@ public class Camera {
             //Random object
             if(i == (int)LabFirst3DGame.getObstacle().x && j == (int)LabFirst3DGame.getObstacle().z){
                 if((eye.x >= LabFirst3DGame.getObstacle().x - 0.075 || eye.x <= LabFirst3DGame.getObstacle().x + 0.075 || eye.z >= LabFirst3DGame.getObstacle().z - 0.075
-                        || eye.z <= LabFirst3DGame.getObstacle().z + 0.075) && (eye.y <= LabFirst3DGame.getObstacle().y + 0.075 || eye.y >= LabFirst3DGame.getObstacle().y - 0.075 )){
+                        || eye.z <= LabFirst3DGame.getObstacle().z + 0.075) && (eye.y <= LabFirst3DGame.getObstacle().y - 0.075 || eye.y >= LabFirst3DGame.getObstacle().y + 0.075 )){
                     Random random = new Random();
                     eye.x = (float)random.nextInt(9) + 0.5f;
                     eye.z = (float)random.nextInt(9) + 0.5f;
