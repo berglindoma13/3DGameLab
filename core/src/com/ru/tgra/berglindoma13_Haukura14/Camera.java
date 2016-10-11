@@ -161,9 +161,9 @@ public class Camera {
             }
             //Left wall in cell on right
             if(LabFirst3DGame.getCells()[i + 1][j].westwall){
-                if(eye.x >= i + 1 - 0.15){
+                if(eye.x >= i + 1 - 0.2){
                     //System.out.println("colliding with wall in cell on right");
-                    eye.x = (float)i + 1 - 0.15f;
+                    eye.x = (float)i + 1 - 0.2f;
                 }
             }
             //Random object
