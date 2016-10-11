@@ -30,8 +30,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
     private Camera cam;
 
-	private static Cell[][] cells;
-
     private static Maze maze;
 
 	@Override
@@ -77,7 +75,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		Gdx.gl.glUseProgram(renderingProgramID);
 
-		OrthographicProjection3D(0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getHeight(), -1, 1);
+		//OrthographicProjection3D(0, Gdx.graphics.getWidth(), 0, Gdx.graphics.getHeight(), -1, 1);
 /*
 		float[] mm = new float[16];
 
@@ -109,11 +107,11 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
 
 		//OrthographicProjection3D(-2, 2, -2, 2, 1, 100);
-		PerspctiveProjection3D();
+		//PerspctiveProjection3D();
         //change the first point to change the starting view
 		//Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
         cam = new Camera(viewMatrixLoc, projectionMatrixLoc);
-        cam.perspectiveProjection(100.0f,6.0f,0.01f,90.0f);
+        cam.perspectiveProjection(100.0f,1.0f,0.01f,90.0f);
         cam.look(new Point3D(-0.5f, 0.0f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
 
 
@@ -172,7 +170,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.3f, 0.1f, 1.0f);
 
-        cam.setShaderMatrix();
+
 		ModelMatrix.main.loadIdentityMatrix();
         ModelMatrix.main.pushMatrix();
 
@@ -228,6 +226,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             }
         }
         ModelMatrix.main.popMatrix();
+        cam.setShaderMatrix();
         cam.checkCollision();
 	}
 
@@ -241,7 +240,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	}
 
-	private void OrthographicProjection3D(float left, float right, float bottom, float top, float near, float far) {
+	/*private void OrthographicProjection3D(float left, float right, float bottom, float top, float near, float far) {
 		float[] pm = new float[16];
 
 		pm[0] = 2.0f / (right - left); pm[4] = 0.0f; pm[8] = 0.0f; pm[12] = -(right + left) / (right - left);
@@ -263,24 +262,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		matrixBuffer.put(pm);
 		matrixBuffer.rewind();
 		Gdx.gl.glUniformMatrix4fv(viewMatrixLoc, 1, false, matrixBuffer);
-	}
-
-	//deciding the lens of the camera, this is 90 degrees wide in any direction.
-	//NearPlane = 1, FarPlane = 100
-	private void PerspctiveProjection3D() {
-		float[] pm = new float[16];
-
-		pm[0] = 1.0f; pm[4] = 0.0f; pm[8] = 0.0f; pm[12] = 0.0f;
-		pm[1] = 0.0f; pm[5] = 1.0f; pm[9] = 0.0f; pm[13] = 0.0f;
-		pm[2] = 0.0f; pm[6] = 0.0f; pm[10] = -1.02f; pm[14] = -2.02f;
-		pm[3] = 0.0f; pm[7] = 0.0f; pm[11] = -1.0f; pm[15] = 0.0f;
-
-		matrixBuffer = BufferUtils.newFloatBuffer(16);
-		matrixBuffer.put(pm);
-		matrixBuffer.rewind();
-		Gdx.gl.glUniformMatrix4fv(projectionMatrixLoc, 1, false, matrixBuffer);
-
-	}
+	}*/
 
 	public static Cell[][] getCells() {
 		return maze.cells;

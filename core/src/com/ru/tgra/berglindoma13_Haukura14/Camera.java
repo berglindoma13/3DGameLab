@@ -29,11 +29,19 @@ public class Camera {
     public Camera(int matrixPointer, int projectionMatrixPointer){
         this.viewMatrixPointer = matrixPointer;
         matrixBuffer = BufferUtils.newFloatBuffer(16);
+        this.projectionMatrixPointer = projectionMatrixPointer;
 
         eye = new Point3D();
         u = new Vector3D(1,0,0);
         v = new Vector3D(0,1,0);
         n = new Vector3D(0,0,1);
+
+        this.left = -1;
+        this.right = 1;
+        this.bottom = -1;
+        this.top = 1;
+        this.near = -1;
+        this.far = 1;
 
         hitWall = false;
     }
@@ -123,15 +131,8 @@ public class Camera {
     public void checkCollision(){
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        //current position = eye
-        //System.out.println("eye" + (int)eye.x + ", " + (int)eye.y + ", " + (int)eye.z);
-
-        //System.out.println("Eye: " + eye.x + " " + eye.y + " " + eye.z);
-
         int i = (int)eye.x;
         int j = (int)eye.z;
-
-        //System.out.println("i: " + i + " j: " + j + "\neye.x: " + eye.x + " eye.z: " + eye.z);
 
         if(i >= 0 && i < 10 && j > 0 && j <= 10){
             //Bottom wall in current cell
