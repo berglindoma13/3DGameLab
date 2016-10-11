@@ -23,6 +23,7 @@ public class Shaders3D {
 
     //private int colorLoc;
     private int lightPosLoc;
+    private int lightPosLoc2;
     private int lightDifLoc;
     private int matDifLoc;
 
@@ -64,6 +65,7 @@ public class Shaders3D {
 
         //colorLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_color");
         lightPosLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_lightPosition");
+        lightPosLoc2			= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_lightPosition1");
         lightDifLoc			    = Gdx.gl.glGetUniformLocation(renderingProgramID, "u_lightDiffuse");
         matDifLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_materialDiffuse");
 
@@ -84,6 +86,9 @@ public class Shaders3D {
     }
     public void setLightPosition(float x, float y, float z, float w){
         Gdx.gl.glUniform4f(lightPosLoc,x,y,z,w);
+    }
+    public void setLightPosition2(float x, float y, float z, float w){
+        Gdx.gl.glUniform4f(lightPosLoc2,x,y,z,w);
     }
 
     public int getVertexPointer(){
