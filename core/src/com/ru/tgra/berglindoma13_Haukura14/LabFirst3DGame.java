@@ -24,13 +24,12 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	public void create () {
 
         shader = new Shaders3D();
+        shader.setLightPosition(5.5f,4.0f,5.5f,1.0f);
+        shader.setLightDiffuse(1.0f,1.0f,1.0f,1.0f);
 
         maze = new Maze();
 
 		Gdx.input.setInputProcessor(this);
-
-		//COLOR IS SET HERE
-        shader.setColor( 0.7f, 0.2f, 0, 1);
 
 		BoxGraphic.create(shader.getVertexPointer(), shader.getNormalPointer());
 		SphereGraphic.create(shader.getVertexPointer(), shader.getNormalPointer());
@@ -96,7 +95,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//do all actual drawing and rendering here
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-		Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.3f, 0.1f, 1.0f);
+        shader.setMaterialDiffuse(0.9f, 0.3f, 0.1f, 1.0f);
 
 
 		ModelMatrix.main.loadIdentityMatrix();
@@ -113,11 +112,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
         //draw little blue box to see position
 		ModelMatrix.main.pushMatrix();
-		//position = i+0.5, 0, j-0.15
 		ModelMatrix.main.addTranslation(cam.eye.x, 0, cam.eye.z);
-		//wall size = 1x1x0.3
 		ModelMatrix.main.addScale(0.1f,0.1f,0.1f);
-		Gdx.gl.glUniform4f(shader.getColorLoc(), 0.0f, 0f, 1f, 1.0f);
+        shader.setMaterialDiffuse(0.0f, 0f, 1f, 1.0f);
 		ModelMatrix.main.setShaderMatrix();
 		BoxGraphic.drawSolidCube();
 		ModelMatrix.main.popMatrix();
@@ -130,22 +127,18 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 				if(maze.cells[i][j].northwall){
 					ModelMatrix.main.pushMatrix();
-                    //position = i+0.5, 0, j-0.15
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j);
-                    //wall size = 1x1x0.3
 					ModelMatrix.main.addScale(1f,1f,0.3f);
-					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.0f, 1f, 0.1f, 1.0f);
+                    shader.setMaterialDiffuse(0.0f, 1f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
 				}
 				if(maze.cells[i][j].westwall){
 					ModelMatrix.main.pushMatrix();
-                    //position = i - 0.15, 0, j + 0.5
 					ModelMatrix.main.addTranslation((float)i, 0, (float)j + 0.5f);
-                    //wall size = 0.3x1x1
 					ModelMatrix.main.addScale(0.3f,1f,1f);
-					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.3f, 0.1f, 1.0f);
+                    shader.setMaterialDiffuse(0.9f, 0.3f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
@@ -154,7 +147,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j + 0.5f);
 					ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
-					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.0f, 0.9f, 1.0f);
+					shader.setMaterialDiffuse(0.9f, 0.0f, 0.9f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					SphereGraphic.drawSolidSphere();
 					ModelMatrix.main.popMatrix();
