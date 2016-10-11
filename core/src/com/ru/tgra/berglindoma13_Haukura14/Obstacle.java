@@ -21,7 +21,7 @@ public class Obstacle {
         ModelMatrix.main.pushMatrix();
         ModelMatrix.main.addTranslation(x, y, z);
         ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
-        Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.0f, 0.9f, 1.0f);
+        shader.setMaterialDiffuse(0.9f, 0.0f, 0.9f, 1.0f);
         ModelMatrix.main.setShaderMatrix();
         SphereGraphic.drawSolidSphere();
         ModelMatrix.main.popMatrix();
