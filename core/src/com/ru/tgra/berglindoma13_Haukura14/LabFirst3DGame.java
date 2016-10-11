@@ -112,8 +112,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		PerspctiveProjection3D();
         //change the first point to change the starting view
 		//Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
-        cam = new Camera(viewMatrixLoc);
-        cam.look(new Point3D(-0.5f, 0.0f, 6.5f), new Point3D(4.0f,0,0), new Vector3D(0,1,0));
+        cam = new Camera(viewMatrixLoc, projectionMatrixLoc);
+        cam.perspectiveProjection(100.0f,6.0f,0.01f,90.0f);
+        cam.look(new Point3D(-0.5f, 0.0f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
 
 
 	}
