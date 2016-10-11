@@ -7,11 +7,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 
-import java.nio.FloatBuffer;
-
-import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
-import com.badlogic.gdx.utils.BufferUtils;
-
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
 
     Shaders3D shader;
@@ -20,12 +15,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
     private static Maze maze;
 
+	private static Obstacle obstacle;
+
 	@Override
 	public void create () {
 
         shader = new Shaders3D();
 
         maze = new Maze();
+
+		obstacle = new Obstacle();
 
 		Gdx.input.setInputProcessor(this);
 
@@ -47,7 +46,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
         cam = new Camera(shader.getViewMatrixLoc(), shader.getProjectionMatrixLoc());
         cam.perspectiveProjection(100.0f,1.0f,0.01f,90.0f);
-        cam.look(new Point3D(0.5f, 0.1f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
+        cam.look(new Point3D(0.5f, -0.3f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
 
 	}
 
@@ -89,6 +88,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	private void update()
 	{
         input();
+		obstacle.update();
 	}
 	
 	private void display()
@@ -133,7 +133,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
                     //position = i+0.5, 0, j-0.15
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j);
                     //wall size = 1x1x0.3
-					ModelMatrix.main.addScale(1f,1f,0.3f);
+					ModelMatrix.main.addScale(1.3f,1f,0.3f);
 					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.0f, 1f, 0.1f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
@@ -150,20 +150,13 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
 				}
-				if(maze.cells[i][j].object){
-					ModelMatrix.main.pushMatrix();
-					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j + 0.5f);
-					ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
-					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.0f, 0.9f, 1.0f);
-					ModelMatrix.main.setShaderMatrix();
-					SphereGraphic.drawSolidSphere();
-					ModelMatrix.main.popMatrix();
-				}
             }
         }
+
         ModelMatrix.main.popMatrix();
         cam.setShaderMatrix();
         cam.checkCollision();
+		obstacle.drawObstacle(shader);
 	}
 
 	@Override
@@ -174,6 +167,10 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	public static Cell[][] getCells() {
 		return maze.cells;
+	}
+
+	public static Obstacle getObstacle() {
+		return obstacle;
 	}
 
 	@Override

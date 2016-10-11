@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.BufferUtils;
 
 import java.nio.FloatBuffer;
+import java.util.Random;
 
 /**
  * Created by Berglind on 06/10/2016.
@@ -57,7 +58,7 @@ public class Camera {
 
     public void slide(float delU, float delV, float delN){
         eye.x += delU*u.x + delV*v.x + delN*n.x;
-        eye.y += delU*u.y + delV*v.y + delN*n.y;
+        //eye.y += delU*u.y + delV*v.y + delN*n.y;
         eye.z += delU*u.z + delV*v.z + delN*n.z;
     }
 
@@ -134,10 +135,10 @@ public class Camera {
         int i = (int)eye.x;
         int j = (int)eye.z;
 
-        System.out.println("eye.x: " + eye.x + " eye.z: " + eye.z);
+        //System.out.println("eye.x: " + eye.x + " eye.z: " + eye.z);
 
         if(i >= 0 && i <= 10 && j >= 0 && j <= 10){
-            //Bottom wall in current cell
+            //Top wall in current cell
             if(LabFirst3DGame.getCells()[i][j+1].northwall){
                 if(eye.z >= j + 1 - 0.2){
                     //System.out.println("colliding with bottom wall in current cell");
@@ -165,6 +166,17 @@ public class Camera {
                     eye.x = (float)i + 1 - 0.15f;
                 }
             }
+            //Random object
+            if(i == (int)LabFirst3DGame.getObstacle().x && j == (int)LabFirst3DGame.getObstacle().z){
+                if((eye.x >= LabFirst3DGame.getObstacle().x - 0.075 || eye.x <= LabFirst3DGame.getObstacle().x + 0.075 || eye.z >= LabFirst3DGame.getObstacle().z - 0.075
+                        || eye.z <= LabFirst3DGame.getObstacle().z + 0.075) && (eye.y <= LabFirst3DGame.getObstacle().y + 0.075 || eye.y >= LabFirst3DGame.getObstacle().y - 0.075 )){
+                    Random random = new Random();
+                    eye.x = (float)random.nextInt(9) + 0.5f;
+                    eye.z = (float)random.nextInt(9) + 0.5f;
+                    LabFirst3DGame.getObstacle().randomize();
+                }
+            }
+
         }
     }
 }

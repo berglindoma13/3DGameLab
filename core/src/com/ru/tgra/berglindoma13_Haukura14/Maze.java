@@ -8,12 +8,10 @@ import java.util.Random;
 public class Maze {
 
     public Cell[][] cells;
-    Random randomPos;
 
 
     public Maze() {
         cells = new Cell[11][11];
-        randomPos = new Random();
 
         cells[0][0] = new Cell(true,true);
         cells[0][1] = new Cell(false,true);
@@ -146,8 +144,6 @@ public class Maze {
         cells[10][8] = new Cell(false,true);
         cells[10][9] = new Cell(false,false);
         cells[10][10] = new Cell(false,false);
-
-        cells[randomPos.nextInt(9)][randomPos.nextInt(9)].object = true;
 
     }
 }
