@@ -154,7 +154,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j + 0.5f);
 					ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
-					Gdx.gl.glUniform4f(colorLoc, 0.9f, 0.0f, 0.9f, 1.0f);
+					Gdx.gl.glUniform4f(shader.getColorLoc(), 0.9f, 0.0f, 0.9f, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					SphereGraphic.drawSolidSphere();
 					ModelMatrix.main.popMatrix();
