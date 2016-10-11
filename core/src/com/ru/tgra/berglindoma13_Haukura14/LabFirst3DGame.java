@@ -175,6 +175,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		ModelMatrix.main.loadIdentityMatrix();
         ModelMatrix.main.pushMatrix();
 
+        //draw floor
+        ModelMatrix.main.pushMatrix();
+        ModelMatrix.main.addTranslation(5f,-1.0f,5);
+        ModelMatrix.main.addScale(11.0f,0.1f,11.0f);
+        ModelMatrix.main.setShaderMatrix();
+        BoxGraphic.drawSolidCube();
+        ModelMatrix.main.popMatrix();
+
+
+        //draw little blue box to see position
 		ModelMatrix.main.pushMatrix();
 		//position = i+0.5, 0, j-0.15
 		ModelMatrix.main.addTranslation(cam.eye.x, 0, cam.eye.z);
