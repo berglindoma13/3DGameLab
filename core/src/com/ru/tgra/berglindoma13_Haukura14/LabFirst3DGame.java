@@ -21,7 +21,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	public void create () {
 
         shader = new Shaders3D();
-        shader.setLightPosition(5.5f,4.0f,5.5f,1.0f);
+        shader.setLightPosition(5.5f,3.0f,5.5f,1.0f);
         shader.setLightDiffuse(1.0f,1.0f,1.0f,1.0f);
 
         maze = new Maze();
@@ -44,7 +44,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
 
         cam = new Camera(shader.getViewMatrixLoc(), shader.getProjectionMatrixLoc());
-        cam.perspectiveProjection(100.0f,1.0f,0.01f,90.0f);
+        cam.perspectiveProjection(100.0f,1.0f,0.01f,60.0f);
         cam.look(new Point3D(0.5f, -0.3f, 6.5f), new Point3D(5.5f,0,0), new Vector3D(0,1,0));
 	}
 
@@ -132,6 +132,8 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.addScale(1.3f,1f,0.3f);
 					ModelMatrix.main.addScale(1f,1f,0.3f);
                     shader.setMaterialDiffuse(1.02f, 0f, 1.02f, 1.0f);
+                    shader.setShininess(10);
+                    shader.setEyePosition(cam.eye.x, cam.eye.y, cam.eye.z, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
@@ -141,6 +143,8 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.addTranslation((float)i, 0, (float)j + 0.5f);
 					ModelMatrix.main.addScale(0.3f,1f,1f);
                     shader.setMaterialDiffuse(1.02f, 0f, 1.02f, 1.0f);
+                    shader.setShininess(10);
+                    shader.setEyePosition(cam.eye.x, cam.eye.y, cam.eye.z, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();

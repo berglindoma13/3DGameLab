@@ -18,6 +18,9 @@ public class Shaders3D {
     private int viewMatrixLoc;
     private int projectionMatrixLoc;
 
+    private int eyePosLoc;
+    private int matShineLoc;
+
     //private int colorLoc;
     private int lightPosLoc;
     private int lightDifLoc;
@@ -54,7 +57,10 @@ public class Shaders3D {
 
         modelMatrixLoc			= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_modelMatrix");
         viewMatrixLoc			= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_viewMatrix");
-        projectionMatrixLoc	= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_projectionMatrix");
+        projectionMatrixLoc	    = Gdx.gl.glGetUniformLocation(renderingProgramID, "u_projectionMatrix");
+
+        eyePosLoc			    = Gdx.gl.glGetUniformLocation(renderingProgramID, "u_eyePosition");
+        matShineLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_materialShininess");
 
         //colorLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_color");
         lightPosLoc				= Gdx.gl.glGetUniformLocation(renderingProgramID, "u_lightPosition");
@@ -64,6 +70,12 @@ public class Shaders3D {
         Gdx.gl.glUseProgram(renderingProgramID);
     }
 
+    public void setEyePosition(float x, float y,  float z, float w){
+        Gdx.gl.glUniform4f(eyePosLoc,x,y,z,w);
+    }
+    public void setShininess(float shine){
+        Gdx.gl.glUniform1f(matShineLoc,shine);
+    }
     public void setMaterialDiffuse(float r, float g,  float b, float a){
         Gdx.gl.glUniform4f(matDifLoc,r,g,b,a);
     }
