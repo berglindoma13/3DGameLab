@@ -21,7 +21,7 @@ public class Obstacle {
         ModelMatrix.main.pushMatrix();
         ModelMatrix.main.addTranslation(x, y, z);
         ModelMatrix.main.addScale(0.15f, 0.15f, 0.15f);
-        shader.setMaterialDiffuse(0.9f, 0.0f, 0.9f, 1.0f);
+        shader.setMaterialDiffuse(1.9f, 0.0f, 0.0f, 1.0f);
         ModelMatrix.main.setShaderMatrix();
         SphereGraphic.drawSolidSphere();
         ModelMatrix.main.popMatrix();
@@ -38,7 +38,7 @@ public class Obstacle {
             }
         }
         else {
-            if(this.y <= -0.4f){
+            if(this.y <= -0.2f){
                 movingUp = true;
             }
             else {

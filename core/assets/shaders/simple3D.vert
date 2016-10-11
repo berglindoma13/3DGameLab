@@ -15,9 +15,9 @@ uniform vec4 u_eyePosition;
 uniform vec4 u_lightDiffuse;
 uniform vec4 u_lightPosition;
 
-//test
 uniform vec4 u_lightPosition1;
-//end of test
+uniform vec4 u_lightPosition3;
+
 
 uniform float u_materialShininess;
 
@@ -37,32 +37,41 @@ void main()
 
 	//lighting
 
-    vec4 s = u_lightPosition - position; //direction to the light
-    vec4 v = u_eyePosition - position; //direction to the camera]
+    vec4 v = u_eyePosition - position; //direction to the camera
 
-    //test
-    vec4 s1 = u_lightPosition1 - position;
-    vec4 h1 = s1+v;
+    //light1
+    vec4 s1 = u_lightPosition1;
+    //vec4 h1 = s1+v;
+    vec4 h1 = s1;
     float lambert1 = dot(normal,s1) / (length(normal) * length(s1));
     float phong1 = dot(normal,h1) /(length(normal) * length(h1));
     vec4 color1 = lambert1 * u_lightDiffuse * u_materialDiffuse + pow(phong1,u_materialShininess) * u_lightDiffuse * vec4(1,1,1,1);
-    //end of test
 
-    vec4 h = s + v;
+
+    //light2
+
+    vec4 s2 = u_lightPosition - position; //direction to the light
+    vec4 h2 = s2 + v;
     //with what intensity does the direction of the light affect the surface
-    float lambert = dot(normal, s) / (length(normal) * length(s));
-    float phong = dot(normal, h) / (length(normal) * length(h));
-    vec4 color2 = lambert * u_lightDiffuse * u_materialDiffuse + pow(phong, u_materialShininess) * u_lightDiffuse * vec4(1,1,1,1);
-    //v_color = lambert * u_lightDiffuse * u_materialDiffuse + pow(phong, u_materialShininess) * u_lightDiffuse * vec4(1,1,1,1);
+    float lambert2 = dot(normal, s2) / (length(normal) * length(s2));
+    float phong2 = dot(normal, h2) / (length(normal) * length(h2));
+    vec4 color2 = lambert2 * u_lightDiffuse * u_materialDiffuse + pow(phong2, u_materialShininess) * u_lightDiffuse * vec4(1,1,1,1);
 
-    v_color = color1 + color2;
+    //light3
+    vec4 s3 = u_lightPosition3; //direction to the light
+    //vec4 h3 = s3 + v;
+    vec4 h3 = s3;
+    //with what intensity does the direction of the light affect the surface
+    float lambert3 = dot(normal, s3) / (length(normal) * length(s3));
+    float phong3 = dot(normal, h3) / (length(normal) * length(h3));
+    vec4 color3 = lambert3 * u_lightDiffuse * u_materialDiffuse + pow(phong3, u_materialShininess) * u_lightDiffuse * vec4(1,1,1,1);
+
+    //v_color = color1 + color2 + color3;
+    v_color = color2;
 
 	position = u_viewMatrix * position;
-	//normal = u_viewMatrix * normal;
 
 	//eye coordinates
-
-	//v_color = (dot(normal, normalize(vec4(-position.x,-position.y,-position.z,0))) / length(normal)) * u_color;
 
 	gl_Position = u_projectionMatrix * position;
 }

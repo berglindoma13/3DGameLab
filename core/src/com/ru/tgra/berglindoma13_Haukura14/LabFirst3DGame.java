@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
 
-    Shaders3D shader;
+    private static Shaders3D shader;
 
     private Camera cam;
 
@@ -17,12 +17,12 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	private static Obstacle obstacle;
 
+
 	@Override
 	public void create () {
 
         shader = new Shaders3D();
-        //shader.setLightPosition(5.5f,3.0f,5.5f,1.0f);
-        shader.setLightDiffuse(1.0f,1.0f,1.0f,1.0f);
+
 
         maze = new Maze();
 
@@ -32,8 +32,6 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 		BoxGraphic.create(shader.getVertexPointer(), shader.getNormalPointer());
 		SphereGraphic.create(shader.getVertexPointer(), shader.getNormalPointer());
-		//SincGraphic.create(shader.getVertexPointer());
-		//CoordFrameGraphic.create(shader.getVertexPointer());
 
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -64,12 +62,12 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			cam.yaw(90f * deltaTime);
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+		/*if (Gdx.input.isKeyPressed(Input.Keys.E)) {
 			cam.slide(0, 3.0f * deltaTime, 0);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
 			cam.slide(0, -3.0f * deltaTime, 0);
-		}
+		}*/
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			cam.slide(-3.0f * deltaTime, 0, 0);
 		}
@@ -95,34 +93,30 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		//do all actual drawing and rendering here
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-       // shader.setMaterialDiffuse(0.9f, 0.3f, 0.1f, 1.0f);
-        shader.setLightPosition(cam.eye.x,cam.eye.y,cam.eye.z,1.0f);
-        shader.setLightPosition2(5.5f,4.0f,5.5f,1.0f);
+        shader.setEyePosition(cam.eye.x, cam.eye.y, cam.eye.z, 1.0f);
 
+        shader.setLightDiffuse(0.64f, 0.64f, 0.64f, 1.0f);
+
+        //setting the position of the 3 different lights
+        shader.setLightPosition(cam.eye.x,cam.eye.y,cam.eye.z,1.0f);
+        shader.setLightPosition2(0.0f,0.0f,0.0f,1.0f);
+		shader.setLightPosition3(10.0f,4.0f,10.0f,4.0f);
 
 		ModelMatrix.main.loadIdentityMatrix();
         ModelMatrix.main.pushMatrix();
 
         //draw floor
         ModelMatrix.main.pushMatrix();
-        ModelMatrix.main.addTranslation(5f,-1.0f,5);
+        ModelMatrix.main.addTranslation(5f,-0.5f,5);
         ModelMatrix.main.addScale(11.0f,0.1f,11.0f);
-        shader.setMaterialDiffuse(0.64f, 0.64f, 0.64f, 1.0f);
+        shader.setMaterialDiffuse(1.5f, 0.0f, 0.0f, 1.0f);
         ModelMatrix.main.setShaderMatrix();
         BoxGraphic.drawSolidCube();
         ModelMatrix.main.popMatrix();
 
-
-        //draw little blue box to see position
-		/*ModelMatrix.main.pushMatrix();
-		ModelMatrix.main.addTranslation(cam.eye.x, 0, cam.eye.z);
-		ModelMatrix.main.addScale(0.1f,0.1f,0.1f);
-        shader.setMaterialDiffuse(0.0f, 0f, 1f, 1.0f);
-		ModelMatrix.main.setShaderMatrix();
-		BoxGraphic.drawSolidCube();
-		ModelMatrix.main.popMatrix();
-*/
         int max = 11;
+
+        shader.setShininess(0.1f);
 
 		for (int i = 0; i < max ; i++){
 
@@ -131,11 +125,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 				if(maze.cells[i][j].northwall){
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j);
-                    //wall size = 1x1x0.3
 					ModelMatrix.main.addScale(1.3f,1f,0.3f);
-                    shader.setMaterialDiffuse(1.02f, 0f, 1.02f, 1.0f);
-                    shader.setShininess(10);
-                    shader.setEyePosition(cam.eye.x, cam.eye.y, cam.eye.z, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
@@ -144,20 +134,16 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					ModelMatrix.main.pushMatrix();
 					ModelMatrix.main.addTranslation((float)i, 0, (float)j + 0.5f);
 					ModelMatrix.main.addScale(0.3f,1f,1f);
-                    shader.setMaterialDiffuse(1.02f, 0f, 1.02f, 1.0f);
-                    shader.setShininess(10);
-                    shader.setEyePosition(cam.eye.x, cam.eye.y, cam.eye.z, 1.0f);
 					ModelMatrix.main.setShaderMatrix();
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
 				}
             }
         }
-
         ModelMatrix.main.popMatrix();
         cam.setShaderMatrix();
-        cam.checkCollision();
 		obstacle.drawObstacle(shader);
+        cam.checkCollision();
 	}
 
 	@Override
