@@ -5,11 +5,11 @@ package com.ru.tgra.berglindoma13_Haukura14;
  */
 public class Cell {
 
-    public boolean southwall;
+    public boolean northwall;
     public boolean westwall;
 
-    Cell(boolean southwall, boolean westwall){
-        this.southwall = southwall;
+    Cell(boolean northwall, boolean westwall){
+        this.northwall = northwall;
         this.westwall = westwall;
     }
 }

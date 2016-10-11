@@ -8,10 +8,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 
 import java.nio.FloatBuffer;
-import java.util.Random;
 
 import com.badlogic.gdx.utils.BufferUtils;
-import com.sun.javafx.sg.prism.NGShape;
 
 public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor {
 
@@ -34,16 +32,12 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 
 	private static Cell[][] cells;
 
+    private static Maze maze;
+
 	@Override
 	public void create () {
 
-		cells = new Cell[10][10];
-
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
-				cells[i][j] = new Cell((Math.random() < 0.5), (Math.random() < 0.5));
-			}
-		}
+        maze = new Maze();
 
 		Gdx.input.setInputProcessor(this);
 
@@ -119,7 +113,9 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
         //change the first point to change the starting view
 		//Look3D(new Point3D(1.0f, 3.0f, 2.0f), new Point3D(0,0,0), new Vector3D(0,1,0));
         cam = new Camera(viewMatrixLoc);
-        cam.look(new Point3D(4.0f, 0.0f, 2.0f), new Point3D(4.0f,0,0), new Vector3D(0,1,0));
+        cam.look(new Point3D(-0.5f, 0.0f, 6.5f), new Point3D(4.0f,0,0), new Vector3D(0,1,0));
+
+
 	}
 
 	private void input()
@@ -189,14 +185,14 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 		BoxGraphic.drawSolidCube();
 		ModelMatrix.main.popMatrix();
 
-        int max = 10;
+        int max = 11;
 
-		for (int i = 0; i < max; i++){
+		for (int i = 0; i < max ; i++){
 
             for(int j = 0; j < max; j++){
 
                 //TODO: WALL SHIT
-				if(cells[i][j].southwall){
+				if(maze.cells[i][j].northwall){
 					ModelMatrix.main.pushMatrix();
                     //position = i+0.5, 0, j-0.15
 					ModelMatrix.main.addTranslation((float)i + 0.5f, 0, (float)j - 0.15f);
@@ -207,7 +203,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 					BoxGraphic.drawSolidCube();
 					ModelMatrix.main.popMatrix();
 				}
-				if(cells[i][j].westwall){
+				if(maze.cells[i][j].westwall){
 					ModelMatrix.main.pushMatrix();
                     //position = i - 0.15, 0, j + 0.5
 					ModelMatrix.main.addTranslation((float)i - 0.15f, 0, (float)j + 0.5f);
@@ -221,7 +217,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
             }
         }
         ModelMatrix.main.popMatrix();
-        cam.checkCollision();   
+        cam.checkCollision();
 	}
 
 	@Override
@@ -276,7 +272,7 @@ public class LabFirst3DGame extends ApplicationAdapter implements InputProcessor
 	}
 
 	public static Cell[][] getCells() {
-		return cells;
+		return maze.cells;
 	}
 
 	@Override
